@@ -39,49 +39,86 @@ class PopularTags extends Command
      */
     public function handle()
     {
+      function cyrillic($string) {
+         $converter = array(
+         'а' => 'a',   'б' => 'b',   'в' => 'v',
+         'г' => 'g',   'д' => 'd',   'е' => 'e',
+         'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
+         'и' => 'i',   'й' => 'y',   'к' => 'k',
+         'л' => 'l',   'м' => 'm',   'н' => 'n',
+         'о' => 'o',   'п' => 'p',   'р' => 'r',
+         'с' => 's',   'т' => 't',   'у' => 'u',
+         'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+         'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
+         'ь' => '',    'ы' => 'y',   'ъ' => '',
+         'э' => 'e',   'ю' => 'yu',  'я' => 'ya',
+         'і' => 'i',   'ї' => 'yi',  'ґ' => 'g',
+         'є' => 'ye',
+
+         'А' => 'A',   'Б' => 'B',   'В' => 'V',
+         'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+         'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',
+         'И' => 'I',   'Й' => 'Y',   'К' => 'K',
+         'Л' => 'L',   'М' => 'M',   'Н' => 'N',
+         'О' => 'O',   'П' => 'P',   'Р' => 'R',
+         'С' => 'S',   'Т' => 'T',   'У' => 'U',
+         'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+         'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',
+         'Ь' => '',    'Ы' => 'Y',   'Ъ' => '',
+         'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+         'І' => 'I',   'Ї' => 'Yi',  'Ґ' => 'G',
+         'Є' => 'Ye'
+        );
+             $string = preg_replace('/-{1,}/', ' ', $string);
+             $string = preg_replace('/[^\p{L}0-9 ]/iu', '', $string);
+             $string = strtr($string, $converter);
+             return mb_strtolower(preg_replace('/ {1,}/', '-', $string));
+         }
+
+        //categories form db to array
         $arr_for_db = [];
         $results = DB::select('select * from new_catalog');
+
+        //create links from categories
         foreach($results as $db) {
-            print_r($db->title);
-            print_r("\r\n");
-        }
-        foreach($results as $db) {
-            array_push($arr_for_db, $db->title);
+            array_push($arr_for_db, "https://ua-tao.com/".cyrillic($db->title)."_s");
         }
 
         $all_rows = [];
         $file_name = [];
+
+        //get list of all files in array
         $files_path = glob(public_path().'/se-*.txt');
-        $i=count($files_path);
         foreach ($files_path as $fp) {
            array_push($file_name, basename($fp));
         }
-        $create = count($file_name)+1;
+
+        //tags from all files to one array
         foreach ($file_name as $fn) {
-          //исходник - превращаем в массив сторк
           $rfile = File::get(public_path()."/".$fn);
           $fl = preg_split("/\r\n|\n|\r/", $rfile);
           $all_rows = array_merge($all_rows, $fl);
-          //кол-во строк в файле
-          print_r("----кол-во строк в данном-----");
-          print_r(count($fl));
-          print_r("\r\n");
-          print_r($arr_for_db);
-          print_r("\r\n");
         }
+
+        //merge tags from files and DB
         $all_rows = array_merge($all_rows, $arr_for_db);
 
-        print_r("----Всего строк в файлах -----");
-        $files_path = glob(public_path().'/pop_reqs.txt');
-        //исходник - превращаем в массив сторк
+        //tags from popular.txt
+        $popular = [];
         $rfile = File::get(public_path().'/pop_reqs.txt');
         $fl = preg_split("/\r\n|\n|\r/", $rfile);
 
-        print_r(count($all_rows));
-        print_r("\r\n");
-        print_r($fl);
-        print_r("\r\n");
+        //create links from popular tags
+        foreach($fl as $tag) {
+            array_push($popular, "https://ua-tao.com/".cyrillic($tag)."_s");
+        }
 
+        //array with unique links(tags)
+        $result = array_diff($popular, $all_rows);
 
+        //append links(tags) to txt file
+        foreach($result as $res) {
+        File::append(public_path()."/new-se-1.txt",$res.PHP_EOL);
+      }
     }
 }
