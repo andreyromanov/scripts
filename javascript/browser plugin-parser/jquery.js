@@ -9,7 +9,6 @@
 var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
 arr_order = order.split('订单号: ');
 arr_order.shift();
-console.log(arr_order)
 var links = $('a.text-mod__link___19F14.text-mod__primary___24vmt.text-mod__hover___ew25K');
 var track_span = 'div.logistics-info-mod__header___r5tzb';
 var tracks = [];
@@ -28,16 +27,22 @@ function createAssociativeArray(arr1, arr2) {
     return arr;
 }
 
+
+
 setTimeout(function ( ) { FireEventClass(links[0], "mouseover");console.log('1');}, 5000);
 setTimeout(function ( ) { FireEventClass(links[1], "mouseover");console.log('2');}, 10000);
 setTimeout(function ( ) { FireEventClass(links[2], "mouseover");console.log('3');}, 15000);
 setTimeout(function ( ) { FireEventClass(links[3], "mouseover");console.log('4');}, 20000);
+setTimeout(function ( ) { FireEventClass(links[4], "mouseover");console.log('5');}, 25000);
 
 
 setTimeout(function ( ) { var t1 = $('[data-reactid=".1"] '+track_span).find('span:eq(2)').text();console.log(t1);tracks.push(t1) }, 9900);
 setTimeout(function ( ) { var t2 = $('[data-reactid=".2"] '+track_span).find('span:eq(2)').text();console.log(t2);tracks.push(t2) }, 14900);
 setTimeout(function ( ) { var t3 = $('[data-reactid=".3"] '+track_span).find('span:eq(2)').text();console.log(t3);tracks.push(t3) }, 19900);
-setTimeout(function ( ) { var t4 = $('[data-reactid=".4"] '+track_span).find('span:eq(2)').text();console.log(t4);tracks.push(t4);console.log(tracks);}, 24900);
+setTimeout(function ( ) { var t4 = $('[data-reactid=".4"] '+track_span).find('span:eq(2)').text();console.log(t4);tracks.push(t4) }, 24900);
+setTimeout(function ( ) { var t5 = $('[data-reactid=".5"] '+track_span).find('span:eq(2)').text();console.log(t5);tracks.push(t5);console.log(tracks)}, 29900);
 
 
-setTimeout(function ( ) { var associativeArray = createAssociativeArray(arr_order, tracks);console.log(associativeArray); }, 25000);
+setTimeout(function ( ) { var associativeArray = createAssociativeArray(arr_order, tracks);console.log(associativeArray)}, 30000);
+
+$('#changeColor').text('sss')
