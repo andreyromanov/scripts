@@ -5,44 +5,80 @@
 /***********FUNCTIONS*************/
 /***********FUNCTIONS*************/
 /***********FUNCTIONS*************/
+function parse(){
+   //show preloader
+   $('#d1').show();
+   $('#d2').hide();
+   //list of orders
+   var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
+   //split string by same symbol
+   arr_order = order.split('订单号: ');
+   //remove first empty element of array
+   arr_order.shift();
+   //list of links to hover
+   var links = $('a.text-mod__link___19F14.text-mod__primary___24vmt.text-mod__hover___ew25K');
+   //span with track number
+   var track_span = 'div.logistics-info-mod__header___r5tzb';
+   //array for track numbers
+   var tracks = [];
+   //trigger hover effect on element
+   function FireEventClass(link,EventName){ 
+       var evObj = document.createEvent( 'Events' );
+       evObj.initEvent( EventName, true, false );
+       link.dispatchEvent( evObj );      
+   }
+   //create object from 2 arrays
+   function createAssociativeArray(arr1, arr2) {
+       var arr = {};
+       for(var i = 0, ii = arr1.length; i<ii; i++) {
+           arr[arr1[i]] = arr2[i];
+       }
+       return arr;
+   }
+   
+   //hover on link to load track number
+   setTimeout(function ( ) { FireEventClass(links[0], "mouseover")}, 5000);
+   setTimeout(function ( ) { FireEventClass(links[1], "mouseover")}, 10000);
+   setTimeout(function ( ) { FireEventClass(links[2], "mouseover")}, 15000);
+   setTimeout(function ( ) { FireEventClass(links[3], "mouseover")}, 20000);
+   setTimeout(function ( ) { FireEventClass(links[4], "mouseover")}, 25000);
+   setTimeout(function ( ) { FireEventClass(links[5], "mouseover")}, 30000);
+   setTimeout(function ( ) { FireEventClass(links[6], "mouseover")}, 35000);
+   setTimeout(function ( ) { FireEventClass(links[7], "mouseover")}, 40000);
+   setTimeout(function ( ) { FireEventClass(links[8], "mouseover")}, 45000);
+   setTimeout(function ( ) { FireEventClass(links[9], "mouseover")}, 50000);
+   
+   //hover on link to load track number
+   setTimeout(function ( ) { var t1 = $('[data-reactid=".1"] '+track_span).find('span:eq(2)').text();console.log(arr_order[0]+' - '+t1);tracks.push(t1) }, 9900);
 
-var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
-arr_order = order.split('订单号: ');
-arr_order.shift();
-var links = $('a.text-mod__link___19F14.text-mod__primary___24vmt.text-mod__hover___ew25K');
-var track_span = 'div.logistics-info-mod__header___r5tzb';
-var tracks = [];
+   setTimeout(function ( ) { var t2 = $('[data-reactid=".2"] '+track_span).find('span:eq(2)').text();console.log(arr_order[1]+' - '+t2);tracks.push(t2) }, 14900);
 
-function FireEventClass(link,EventName){ 
-    var evObj = document.createEvent( 'Events' );
-    evObj.initEvent( EventName, true, false );
-    link.dispatchEvent( evObj );      
+   setTimeout(function ( ) { var t3 = $('[data-reactid=".3"] '+track_span).find('span:eq(2)').text();console.log(arr_order[2]+' - '+t3);tracks.push(t3) }, 19900);
+
+   setTimeout(function ( ) { var t4 = $('[data-reactid=".4"] '+track_span).find('span:eq(2)').text();console.log(arr_order[3]+' - '+t4);tracks.push(t4) }, 24900);
+
+   setTimeout(function ( ) { var t5 = $('[data-reactid=".5"] '+track_span).find('span:eq(2)').text();console.log(arr_order[4]+' - '+t5);tracks.push(t5) }, 29900);
+
+   setTimeout(function ( ) { var t6 = $('[data-reactid=".6"] '+track_span).find('span:eq(2)').text();console.log(arr_order[5]+' - '+t6);tracks.push(t6) }, 34900);
+
+   setTimeout(function ( ) { var t7 = $('[data-reactid=".7"] '+track_span).find('span:eq(2)').text();console.log(arr_order[6]+' - '+t7);tracks.push(t7) }, 39900);
+
+   setTimeout(function ( ) { var t8 = $('[data-reactid=".8"] '+track_span).find('span:eq(2)').text();console.log(arr_order[7]+' - '+t8);tracks.push(t8) }, 44900);
+
+   setTimeout(function ( ) { var t9 = $('[data-reactid=".9"] '+track_span).find('span:eq(2)').text();console.log(arr_order[8]+' - '+t9);tracks.push(t9) }, 49900);
+
+   setTimeout(function ( ) { var t10 = $('[data-reactid=".10"] '+track_span).find('span:eq(2)').text();console.log(arr_order[9]+' - '+t10);tracks.push(t10) }, 54900);
+   
+
+   //create object to send
+   setTimeout(function ( ) { var associativeArray = createAssociativeArray(arr_order, tracks);console.log(associativeArray);$('#d1').hide();$('#d2').show() }, 55000);     
 }
+//create button on page
+setTimeout(function ( ) { 
+  var btn = document.createElement("BUTTON");
+  btn.innerHTML = "START";
+  btn.id = "prs_btn";
+  btn.onclick = function() {parse()};
+  document.getElementById("J_MtMainNav").appendChild(btn); 
+ }, 1000);
 
-function createAssociativeArray(arr1, arr2) {
-    var arr = {};
-    for(var i = 0, ii = arr1.length; i<ii; i++) {
-        arr[arr1[i]] = arr2[i];
-    }
-    return arr;
-}
-
-
-
-setTimeout(function ( ) { FireEventClass(links[0], "mouseover");console.log('1');}, 5000);
-setTimeout(function ( ) { FireEventClass(links[1], "mouseover");console.log('2');}, 10000);
-setTimeout(function ( ) { FireEventClass(links[2], "mouseover");console.log('3');}, 15000);
-setTimeout(function ( ) { FireEventClass(links[3], "mouseover");console.log('4');}, 20000);
-setTimeout(function ( ) { FireEventClass(links[4], "mouseover");console.log('5');}, 25000);
-
-
-setTimeout(function ( ) { var t1 = $('[data-reactid=".1"] '+track_span).find('span:eq(2)').text();console.log(t1);tracks.push(t1) }, 9900);
-setTimeout(function ( ) { var t2 = $('[data-reactid=".2"] '+track_span).find('span:eq(2)').text();console.log(t2);tracks.push(t2) }, 14900);
-setTimeout(function ( ) { var t3 = $('[data-reactid=".3"] '+track_span).find('span:eq(2)').text();console.log(t3);tracks.push(t3) }, 19900);
-setTimeout(function ( ) { var t4 = $('[data-reactid=".4"] '+track_span).find('span:eq(2)').text();console.log(t4);tracks.push(t4) }, 24900);
-setTimeout(function ( ) { var t5 = $('[data-reactid=".5"] '+track_span).find('span:eq(2)').text();console.log(t5);tracks.push(t5);console.log(tracks)}, 29900);
-
-
-setTimeout(function ( ) { var associativeArray = createAssociativeArray(arr_order, tracks);console.log(associativeArray)}, 30000);
-
-$('#changeColor').text('sss')

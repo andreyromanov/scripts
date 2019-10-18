@@ -11,7 +11,7 @@
         "js" : ["jquery.js"]
     }],
     "icons": { 
-        "16": "yellow.png",
-        "48": "yellow.png",
-       "128": "yellow.png" }
+        "16": "red.png",
+        "48": "red.png",
+       "128": "red.png" }
   }
