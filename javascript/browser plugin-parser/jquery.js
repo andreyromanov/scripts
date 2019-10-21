@@ -5,6 +5,18 @@
 /***********FUNCTIONS*************/
 /***********FUNCTIONS*************/
 /***********FUNCTIONS*************/
+
+var counter = 0;
+//create button on page
+setTimeout(function ( ) { 
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = "START";
+    btn.id = "prs_btn";
+    btn.onclick = function() {parse()};
+    document.getElementById("J_MtMainNav").appendChild(btn); 
+   }, 1000);
+
+//main function
 function parse(){
    //show preloader
    $('#d1').show();
@@ -36,49 +48,85 @@ function parse(){
        return arr;
    }
    
-   //hover on link to load track number
-   setTimeout(function ( ) { FireEventClass(links[0], "mouseover")}, 5000);
-   setTimeout(function ( ) { FireEventClass(links[1], "mouseover")}, 10000);
-   setTimeout(function ( ) { FireEventClass(links[2], "mouseover")}, 15000);
-   setTimeout(function ( ) { FireEventClass(links[3], "mouseover")}, 20000);
-   setTimeout(function ( ) { FireEventClass(links[4], "mouseover")}, 25000);
-   setTimeout(function ( ) { FireEventClass(links[5], "mouseover")}, 30000);
-   setTimeout(function ( ) { FireEventClass(links[6], "mouseover")}, 35000);
-   setTimeout(function ( ) { FireEventClass(links[7], "mouseover")}, 40000);
-   setTimeout(function ( ) { FireEventClass(links[8], "mouseover")}, 45000);
-   setTimeout(function ( ) { FireEventClass(links[9], "mouseover")}, 50000);
+   
+ /*  //hover on link to load track number
+   $.ajax({
+    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[counter]+"",
+    //data: {id},
+    type: "GET",
+    dataType : 'json',
+    success: function(data) {
+         console.log(arr_order[counter-1] +' - '+ data.expressId + '  ' +counter);
+    }
+    
+});
+counter++;*/
+  
+
+   setTimeout(function ( ) { FireEventClass(links[0], "mouseover")}, 6000);
+   setTimeout(function ( ) { FireEventClass(links[1], "mouseover")}, 12000);
+   setTimeout(function ( ) { FireEventClass(links[2], "mouseover")}, 18000);
+   setTimeout(function ( ) { FireEventClass(links[3], "mouseover")}, 24000);
+   setTimeout(function ( ) { FireEventClass(links[4], "mouseover")}, 30000);
+   setTimeout(function ( ) { FireEventClass(links[5], "mouseover")}, 36000);
+   setTimeout(function ( ) { FireEventClass(links[6], "mouseover")}, 42000);
+   setTimeout(function ( ) { FireEventClass(links[7], "mouseover")}, 48000);
+   setTimeout(function ( ) { FireEventClass(links[8], "mouseover")}, 54000);
+   setTimeout(function ( ) { FireEventClass(links[9], "mouseover")}, 60000);
+   setTimeout(function ( ) { FireEventClass(links[10], "mouseover")}, 66000);
+   setTimeout(function ( ) { FireEventClass(links[11], "mouseover")}, 72000);
+   setTimeout(function ( ) { FireEventClass(links[12], "mouseover")}, 78000);
+   setTimeout(function ( ) { FireEventClass(links[13], "mouseover")}, 84000);
+   setTimeout(function ( ) { FireEventClass(links[14], "mouseover")}, 90000);
    
    //hover on link to load track number
-   setTimeout(function ( ) { var t1 = $('[data-reactid=".1"] '+track_span).find('span:eq(2)').text();console.log(arr_order[0]+' - '+t1);tracks.push(t1) }, 9900);
+   setTimeout(function ( ) { var t1 = $('[data-reactid=".1"] '+track_span).find('span:eq(2)').text();console.log(arr_order[0]+' - '+t1);tracks.push(t1) }, 11900);
 
-   setTimeout(function ( ) { var t2 = $('[data-reactid=".2"] '+track_span).find('span:eq(2)').text();console.log(arr_order[1]+' - '+t2);tracks.push(t2) }, 14900);
+   setTimeout(function ( ) { var t2 = $('[data-reactid=".2"] '+track_span).find('span:eq(2)').text();console.log(arr_order[1]+' - '+t2);tracks.push(t2) }, 17900);
 
-   setTimeout(function ( ) { var t3 = $('[data-reactid=".3"] '+track_span).find('span:eq(2)').text();console.log(arr_order[2]+' - '+t3);tracks.push(t3) }, 19900);
+   setTimeout(function ( ) { var t3 = $('[data-reactid=".3"] '+track_span).find('span:eq(2)').text();console.log(arr_order[2]+' - '+t3);tracks.push(t3) }, 23900);
 
-   setTimeout(function ( ) { var t4 = $('[data-reactid=".4"] '+track_span).find('span:eq(2)').text();console.log(arr_order[3]+' - '+t4);tracks.push(t4) }, 24900);
+   setTimeout(function ( ) { var t4 = $('[data-reactid=".4"] '+track_span).find('span:eq(2)').text();console.log(arr_order[3]+' - '+t4);tracks.push(t4) }, 29900);
 
-   setTimeout(function ( ) { var t5 = $('[data-reactid=".5"] '+track_span).find('span:eq(2)').text();console.log(arr_order[4]+' - '+t5);tracks.push(t5) }, 29900);
+   setTimeout(function ( ) { var t5 = $('[data-reactid=".5"] '+track_span).find('span:eq(2)').text();console.log(arr_order[4]+' - '+t5);tracks.push(t5) }, 35900);
 
-   setTimeout(function ( ) { var t6 = $('[data-reactid=".6"] '+track_span).find('span:eq(2)').text();console.log(arr_order[5]+' - '+t6);tracks.push(t6) }, 34900);
+   setTimeout(function ( ) { var t6 = $('[data-reactid=".6"] '+track_span).find('span:eq(2)').text();console.log(arr_order[5]+' - '+t6);tracks.push(t6) }, 41900);
 
-   setTimeout(function ( ) { var t7 = $('[data-reactid=".7"] '+track_span).find('span:eq(2)').text();console.log(arr_order[6]+' - '+t7);tracks.push(t7) }, 39900);
+   setTimeout(function ( ) { var t7 = $('[data-reactid=".7"] '+track_span).find('span:eq(2)').text();console.log(arr_order[6]+' - '+t7);tracks.push(t7) }, 47900);
 
-   setTimeout(function ( ) { var t8 = $('[data-reactid=".8"] '+track_span).find('span:eq(2)').text();console.log(arr_order[7]+' - '+t8);tracks.push(t8) }, 44900);
+   setTimeout(function ( ) { var t8 = $('[data-reactid=".8"] '+track_span).find('span:eq(2)').text();console.log(arr_order[7]+' - '+t8);tracks.push(t8) }, 53900);
 
-   setTimeout(function ( ) { var t9 = $('[data-reactid=".9"] '+track_span).find('span:eq(2)').text();console.log(arr_order[8]+' - '+t9);tracks.push(t9) }, 49900);
+   setTimeout(function ( ) { var t9 = $('[data-reactid=".9"] '+track_span).find('span:eq(2)').text();console.log(arr_order[8]+' - '+t9);tracks.push(t9) }, 59900);
 
-   setTimeout(function ( ) { var t10 = $('[data-reactid=".10"] '+track_span).find('span:eq(2)').text();console.log(arr_order[9]+' - '+t10);tracks.push(t10) }, 54900);
-   
+   setTimeout(function ( ) { var t10 = $('[data-reactid=".10"] '+track_span).find('span:eq(2)').text();console.log(arr_order[9]+' - '+t10);tracks.push(t10) }, 65900);
 
+   setTimeout(function ( ) { var t11 = $('[data-reactid=".11"] '+track_span).find('span:eq(2)').text();console.log(arr_order[10]+' - '+t11);tracks.push(t11) }, 71900);
+
+   setTimeout(function ( ) { var t12 = $('[data-reactid=".12"] '+track_span).find('span:eq(2)').text();console.log(arr_order[11]+' - '+t12);tracks.push(t12) }, 77900);
+
+   setTimeout(function ( ) { var t13 = $('[data-reactid=".13"] '+track_span).find('span:eq(2)').text();console.log(arr_order[12]+' - '+t13);tracks.push(t13) }, 83900);
+
+   setTimeout(function ( ) { var t14 = $('[data-reactid=".14"] '+track_span).find('span:eq(2)').text();console.log(arr_order[13]+' - '+t14);tracks.push(t14) }, 89900);
+
+   setTimeout(function ( ) { var t15 = $('[data-reactid=".15"] '+track_span).find('span:eq(2)').text();console.log(arr_order[14]+' - '+t15);tracks.push(t15) }, 94900);
+
+  
    //create object to send
-   setTimeout(function ( ) { var associativeArray = createAssociativeArray(arr_order, tracks);console.log(associativeArray);$('#d1').hide();$('#d2').show() }, 55000);     
+   setTimeout(function ( ) { 
+       var associativeArray = createAssociativeArray(arr_order, tracks);console.log(associativeArray);
+       /*/request
+       $.ajax({
+        headers: {
+        },
+        url: "#",
+        //data: {id},
+        type: "POST",
+        dataType : 'json',
+        success: function(data) {
+             console.log('success');
+        }
+    });
+    //request*/
+    }, 95000);     
 }
-//create button on page
-setTimeout(function ( ) { 
-  var btn = document.createElement("BUTTON");
-  btn.innerHTML = "START";
-  btn.id = "prs_btn";
-  btn.onclick = function() {parse()};
-  document.getElementById("J_MtMainNav").appendChild(btn); 
- }, 1000);
 
