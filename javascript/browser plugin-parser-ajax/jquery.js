@@ -40,19 +40,53 @@ setTimeout(function ( ) {
    }, 100);
 
    setTimeout(function ( ) { 
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = "NEXT";
+    btn.id = "next_btn";
+    btn.onclick = function() {next()};
+    document.getElementById("J_MtMainNav").appendChild(btn); 
+   }, 100);
+
+   setTimeout(function ( ) { 
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = "CLEAN";
+    btn.id = "clean_btn";
+    btn.onclick = function() {clean()};
+    document.getElementById("J_MtMainNav").appendChild(btn); 
+   }, 100);
+
+   setTimeout(function ( ) { 
     var btn = document.createElement("DIV");
     btn.id = "display";
     document.getElementById("J_MtMainNav").appendChild(btn); 
    }, 100);
 
    setTimeout(function ( ) { 
-   $('#send_btn').css('margin-left', '20px');
-   $('#display').css('background-color', 'white');
-   $('#display').css('margin-top', '30px');
-   $('#display').css('box-shadow', '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)');
-   $('#display').css('width', '350px');
-   $('#display').css('padding', '7px');
+   $('#clean_btn').css('margin', '0 20px');
+   $('#send_btn').css('margin', '0 20px');
+   $('#display').css({
+        'background-color' : 'white',
+        'margin-top' : '30px',
+        'box-shadow' : '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+        'width' : '350px',
+        'padding' : '7px'
+
+   });
    }, 101);
+
+   function clean(){
+
+    var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
+    //split string by same symbol
+    arr_order = order.split('订单号: ');
+    //remove first empty element of array
+    arr_order.shift();
+    alert('cleaned');
+   }
+
+   function next(){
+    $( ".pagination-next" ).trigger( "click" );
+   }
 
 //main function
 function parse(){
