@@ -1,0 +1,17 @@
+{
+    "name": "HOVER-AJAX",
+    "version": "1.0",
+    "description": "onclick",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [{
+        "matches": ["https://buyertrade.taobao.com/*"],
+        "js" : ["jquery.js"]
+    }],
+    "icons": { 
+        "16": "red.png",
+        "48": "red.png",
+       "128": "red.png" }
+  }
