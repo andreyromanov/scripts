@@ -25,7 +25,7 @@ arr_order.shift();
 //create button on page
 setTimeout(function ( ) { 
     var btn = document.createElement("BUTTON");
-    btn.innerHTML = "TRACK";
+    btn.innerHTML = " 1 - TRACK";
     btn.id = "prs_btn";
     btn.onclick = function() {parse()};
     document.getElementById("J_MtMainNav").appendChild(btn); 
@@ -33,7 +33,7 @@ setTimeout(function ( ) {
 
    setTimeout(function ( ) { 
     var btn = document.createElement("BUTTON");
-    btn.innerHTML = "SEND";
+    btn.innerHTML = " 2 - SEND";
     btn.id = "send_btn";
     btn.onclick = function() {send()};
     document.getElementById("J_MtMainNav").appendChild(btn); 
@@ -41,7 +41,7 @@ setTimeout(function ( ) {
 
    setTimeout(function ( ) { 
     var btn = document.createElement("BUTTON");
-    btn.innerHTML = "NEXT";
+    btn.innerHTML = " 3 - NEXT";
     btn.id = "next_btn";
     btn.onclick = function() {next()};
     document.getElementById("J_MtMainNav").appendChild(btn); 
@@ -49,7 +49,7 @@ setTimeout(function ( ) {
 
    setTimeout(function ( ) { 
     var btn = document.createElement("BUTTON");
-    btn.innerHTML = "CLEAN";
+    btn.innerHTML = " 4 - CLEAN";
     btn.id = "clean_btn";
     btn.onclick = function() {clean()};
     document.getElementById("J_MtMainNav").appendChild(btn); 
@@ -62,19 +62,24 @@ setTimeout(function ( ) {
    }, 100);
 
    setTimeout(function ( ) { 
-   $('#clean_btn').css('margin', '0 20px');
-   $('#send_btn').css('margin', '0 20px');
+   $('#prs_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+   $('#next_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+   $('#clean_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+   $('#send_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+
    $('#display').css({
         'background-color' : 'white',
         'margin-top' : '30px',
         'box-shadow' : '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
         'width' : '350px',
         'padding' : '7px'
-
    });
    }, 101);
 
    function clean(){
+
+    $('#clean_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+    $('#prs_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
 
     var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
     //split string by same symbol
@@ -86,10 +91,14 @@ setTimeout(function ( ) {
 
    function next(){
     $( ".pagination-next" ).trigger( "click" );
+    $('#clean_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+    $('#next_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
    }
 
 //main function
 function parse(){
+    $('#prs_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+    $('#send_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
    //show preloader
    $('#d1').show();
    $('#d2').hide();
@@ -318,6 +327,8 @@ $.ajax({
 }
 
 function send(){
+    $('#send_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+    $('#next_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
     alert('TAO-BAO')
     var associativeArray = createAssociativeArray(arr_order, tracks)
     console.log(associativeArray)
