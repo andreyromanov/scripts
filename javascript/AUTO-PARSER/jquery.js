@@ -15,9 +15,6 @@ function createAssociativeArray(arr1, arr2) {
     return arr;
 }
 
-
-
-var obj = {};
 var counter = 0;
 var tracks = [];
 var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
@@ -25,16 +22,36 @@ var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span')
 arr_order = order.split('订单号: ');
 //remove first empty element of array
 arr_order.shift();
-
-
-
-
 //create button on page
 setTimeout(function ( ) { 
     var btn = document.createElement("BUTTON");
-    btn.innerHTML = " 1 - START";
+    btn.innerHTML = " 1 - TRACK";
     btn.id = "prs_btn";
     btn.onclick = function() {parse()};
+    document.getElementById("J_MtMainNav").appendChild(btn); 
+   }, 100);
+
+   setTimeout(function ( ) { 
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = " 2 - SEND";
+    btn.id = "send_btn";
+    btn.onclick = function() {send()};
+    document.getElementById("J_MtMainNav").appendChild(btn); 
+   }, 100);
+
+   setTimeout(function ( ) { 
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = " 3 - NEXT";
+    btn.id = "next_btn";
+    btn.onclick = function() {next()};
+    document.getElementById("J_MtMainNav").appendChild(btn); 
+   }, 100);
+
+   setTimeout(function ( ) { 
+    var btn = document.createElement("BUTTON");
+    btn.innerHTML = " 4 - CLEAN";
+    btn.id = "clean_btn";
+    btn.onclick = function() {clean()};
     document.getElementById("J_MtMainNav").appendChild(btn); 
    }, 100);
 
@@ -46,6 +63,9 @@ setTimeout(function ( ) {
 
    setTimeout(function ( ) { 
    $('#prs_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+   $('#next_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+   $('#clean_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+   $('#send_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
 
    $('#display').css({
         'background-color' : 'white',
@@ -56,98 +76,274 @@ setTimeout(function ( ) {
    });
    }, 101);
 
-
-   ////////////////////////////////////////////////////
-
-   function myFunction(item, index) {
-    console.log(index + ":" + item); 
-    $.ajax({
-       url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+item+"",
-       type: "GET",
-       dataType : 'json',
-       success: function(data) {
-            obj[item] = data.expressId; 
-            console.log(item +' - '+ data.expressId + '  ' +index);
-            tracks.push(data.expressId);
-            $('#display').append(index + ") " + item + " - "+ data.expressId + "<br>");
-            console.log(tracks);
-       }
-       
-   });
-  }
-
-  
-
-///////////////////////////////////////////////////////
-
-
-
-
-
-//main function
-function parse(){
-
-    arr_order.forEach(myFunction);
-    console.log('sadsadasfsdfsdfgd');
-    setTimeout(function ( ) { send() }, 10000);
-
-}
-
-
-
-
-
-
-
-
-function send(){
-
-    console.log('send');
-
-    $.ajax({
-        url: "API",
-        type: "POST",
-       // data: {associativeArray},
-        dataType : 'json',
-        success: function(data) {
-             alert('successfuly sent')
-        }
-        
-    });
-    console.log('that is yeaaa')
-    console.log(obj)
-    setTimeout(function ( ) { next() }, 5000);
-}
-
-console.log($('li.pagination-disabled.pagination-next').length)
-   
-
-
-
-   function next(){
-    $( ".pagination-next" ).trigger( "click" );
-    console.log('next')
-    setTimeout(function ( ) { clean() }, 5000);
-   }
-
-
    function clean(){
+
+    $('#clean_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+    $('#prs_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+
     var order = $('td.bought-wrapper-mod__head-info-cell___29cDO span').find('span').text();
     //split string by same symbol
     arr_order = order.split('订单号: ');
     //remove first empty element of array
     arr_order.shift();
     alert('cleaned');
-    //setTimeout(function ( ) { parse() }, 5000);
    }
 
+   function next(){
+    $( ".pagination-next" ).trigger( "click" );
+    $('#clean_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+    $('#next_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+   }
 
-
-
-
+//main function
+function parse(){
+    $('#prs_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+    $('#send_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+   //show preloader
+   $('#d1').show();
+   $('#d2').hide();
    
+/*   //hover on link to load track number
+   $.ajax({
+    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[counter]+"",
+    //data: {id},
+    type: "GET",
+    dataType : 'json',
+    success: function(data) {
+         console.log(arr_order[counter-1] +' - '+ data.expressId + '  ' +counter);
+         tracks.push(data.expressId);
+         $('#display').append(counter + ") " + arr_order[counter-1] + " - "+ data.expressId + "<br>");
+         console.log(tracks);
+    }
+    
+});
+counter++;*/
+$('#display').append("Tracks " + arr_order.length + "<label id='count'></label> " + "<hr>");
+$.ajax({
+    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[0]+"",
+    type: "GET",
+    dataType : 'json',
+    success: function(data) {
+         console.log(arr_order[0] +' - '+ data.expressId);
+         tracks.push(data.expressId);
+         $('#display').append("1) " + arr_order[0] + " - "+ data.expressId + "<br>");
+         $('#count').text(" / 1");
+
+         $.ajax({
+            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[1]+"",
+            type: "GET",
+            dataType : 'json',
+            success: function(data) {
+                 console.log(arr_order[1] +' - '+ data.expressId);
+                 tracks.push(data.expressId);
+                 $('#display').append("2) " + arr_order[1] + " - "+ data.expressId + "<br>");
+                 $('#count').text(" / 2");
 
 
+                 $.ajax({
+                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[2]+"",
+                    type: "GET",
+                    dataType : 'json',
+                    success: function(data) {
+                         console.log(arr_order[2] +' - '+ data.expressId);
+                         tracks.push(data.expressId);
+                         $('#display').append("3) " + arr_order[2] + " - "+ data.expressId + "<br>");
+                         $('#count').text(" / 3");
 
 
+                         $.ajax({
+                            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[3]+"",
+                            type: "GET",
+                            dataType : 'json',
+                            success: function(data) {
+                                 console.log(arr_order[3] +' - '+ data.expressId);
+                                 tracks.push(data.expressId);
+                                 $('#display').append("4) " + arr_order[3] + " - "+ data.expressId + "<br>");
+                                 $('#count').text(" / 4");
+
+
+                                 $.ajax({
+                                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[4]+"",
+                                    type: "GET",
+                                    dataType : 'json',
+                                    success: function(data) {
+                                         console.log(arr_order[4] +' - '+ data.expressId);
+                                         tracks.push(data.expressId);
+                                         $('#display').append("5) " + arr_order[4] + " - "+ data.expressId + "<br>");
+                                         $('#count').text(" / 5");
+
+
+                                         $.ajax({
+                                            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[5]+"",
+                                            type: "GET",
+                                            dataType : 'json',
+                                            success: function(data) {
+                                                 console.log(arr_order[5] +' - '+ data.expressId);
+                                                 tracks.push(data.expressId);
+                                                 $('#display').append("6) " + arr_order[5] + " - "+ data.expressId + "<br>");
+                                                 $('#count').text(" / 6");
+
+
+                                                 $.ajax({
+                                                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[6]+"",
+                                                    type: "GET",
+                                                    dataType : 'json',
+                                                    success: function(data) {
+                                                         console.log(arr_order[6] +' - '+ data.expressId);
+                                                         tracks.push(data.expressId);
+                                                         $('#display').append("7) " + arr_order[6] + " - "+ data.expressId + "<br>");
+                                                         $('#count').text(" / 7");
+
+
+                                                         $.ajax({
+                                                            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[7]+"",
+                                                            type: "GET",
+                                                            dataType : 'json',
+                                                            success: function(data) {
+                                                                 console.log(arr_order[7] +' - '+ data.expressId);
+                                                                 tracks.push(data.expressId);
+                                                                 $('#display').append("8) " + arr_order[7] + " - "+ data.expressId + "<br>");
+                                                                 $('#count').text(" / 8");
+
+
+                                                                 $.ajax({
+                                                                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[8]+"",
+                                                                    type: "GET",
+                                                                    dataType : 'json',
+                                                                    success: function(data) {
+                                                                         console.log(arr_order[8] +' - '+ data.expressId);
+                                                                         tracks.push(data.expressId);
+                                                                         $('#display').append("9) " + arr_order[8] + " - "+ data.expressId + "<br>");
+                                                                         $('#count').text(" / 9");
+
+
+                                                                         $.ajax({
+                                                                            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[9]+"",
+                                                                            type: "GET",
+                                                                            dataType : 'json',
+                                                                            success: function(data) {
+                                                                                 console.log(arr_order[9] +' - '+ data.expressId);
+                                                                                 tracks.push(data.expressId);
+                                                                                 $('#display').append("10) " + arr_order[9] + " - "+ data.expressId + "<br>");
+                                                                                 $('#count').text(" / 10");
+
+
+                                                                                 $.ajax({
+                                                                                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[10]+"",
+                                                                                    type: "GET",
+                                                                                    dataType : 'json',
+                                                                                    success: function(data) {
+                                                                                         console.log(arr_order[10] +' - '+ data.expressId);
+                                                                                         tracks.push(data.expressId);
+                                                                                         $('#display').append("11) " + arr_order[10] + " - "+ data.expressId + "<br>");
+                                                                                         $('#count').text(" / 11");
+
+                                                                                         $.ajax({
+                                                                                            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[11]+"",
+                                                                                            type: "GET",
+                                                                                            dataType : 'json',
+                                                                                            success: function(data) {
+                                                                                                 console.log(arr_order[11] +' - '+ data.expressId);
+                                                                                                 tracks.push(data.expressId);
+                                                                                                 $('#display').append("12) " + arr_order[11] + " - "+ data.expressId + "<br>");
+                                                                                                 $('#count').text(" / 12");
+
+                                                                                                 $.ajax({
+                                                                                                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[12]+"",
+                                                                                                    type: "GET",
+                                                                                                    dataType : 'json',
+                                                                                                    success: function(data) {
+                                                                                                         console.log(arr_order[12] +' - '+ data.expressId);
+                                                                                                         tracks.push(data.expressId);
+                                                                                                         $('#display').append("13) " + arr_order[12] + " - "+ data.expressId + "<br>");
+                                                                                                         $('#count').text(" / 13");
+
+                                                                                                         $.ajax({
+                                                                                                            url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[13]+"",
+                                                                                                            type: "GET",
+                                                                                                            dataType : 'json',
+                                                                                                            success: function(data) {
+                                                                                                                 console.log(arr_order[13] +' - '+ data.expressId);
+                                                                                                                 tracks.push(data.expressId);
+                                                                                                                 $('#display').append("14) " + arr_order[13] + " - "+ data.expressId + "<br>");
+                                                                                                                 $('#count').text(" / 14");
+
+                                                                                                                 $.ajax({
+                                                                                                                    url: "https://buyertrade.taobao.com/trade/json/transit_step.do?bizOrderId="+arr_order[14]+"",
+                                                                                                                    type: "GET",
+                                                                                                                    dataType : 'json',
+                                                                                                                    success: function(data) {
+                                                                                                                         console.log(arr_order[14] +' - '+ data.expressId);
+                                                                                                                         tracks.push(data.expressId);
+                                                                                                                         $('#display').append("15) " + arr_order[14] + " - "+ data.expressId + "<br>");
+                                                                                                                         $('#count').text(" / 15");
+                                                                                                                    }
+                                                                                                                    
+                                                                                                                });
+                                                                                                            }
+                                                                                                            
+                                                                                                        });
+                                                                                                    }
+                                                                                                    
+                                                                                                });
+                                                                                            }
+                                                                                            
+                                                                                        });
+                                                                                    }
+                                                                                    
+                                                                                });
+                                                                            }
+                                                                            
+                                                                        });
+                                                                    }
+                                                                    
+                                                                });
+                                                            }
+                                                            
+                                                        });
+                                                    }
+                                                    
+                                                });
+                                            }
+                                            
+                                        });
+                                    }
+                                    
+                                });
+                            }
+                            
+                        });
+                    }
+                    
+                });
+            }
+            
+        });
+    }
+    
+});
+
+
+}
+
+function send(){
+    $('#send_btn').css({'margin' : '0 10px', 'background-color' : 'yellow'});
+    $('#next_btn').css({'margin' : '0 10px', 'background-color' : 'green'});
+    //alert('TAO-BAO')
+    var associativeArray = createAssociativeArray(arr_order, tracks)
+
+    $.ajax({
+        url: "API",
+        type: "POST",
+        data: {associativeArray},
+        dataType : 'json',
+        success: function(data) {
+             alert('successfuly sent')
+        }
+        
+    });
+
+    console.log(associativeArray)
+    console.log(arr_order)
+}
 
